@@ -4,7 +4,9 @@ import Layout from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData, context }) {
+  console.log(context, "context");
+
   return (
     <Layout home>
       {/* Keep the existing code here */}
@@ -30,13 +32,18 @@ export default function Home({ allPostsData }) {
   );
 }
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return { props: { allPostsData } };
-}
-
-// export async function getServerSideProps(context) {
-//   // console.log(context);
+// export async function getStaticProps() {
 //   const allPostsData = getSortedPostsData();
 //   return { props: { allPostsData } };
 // }
+
+export async function getServerSideProps(context) {
+  console.log(context);
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+      context: { query: context.query, resolvedUrl: context.resolvedUrl },
+    },
+  };
+}

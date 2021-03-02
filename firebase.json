@@ -1,6 +1,26 @@
 {
   "hosting": {
-    "public": "out",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextServer"
+      }
+    ]
+  },
+  "functions": {
+    "source": ".",
+    "ignore": [
+      "node_modules",
+      ".git",
+      ".gitignore",
+      ".nyc_output",
+      ".runtimeconfig.json",
+      "firebase-debug.log",
+      "tslint.json",
+      "tests"
+    ],
+    "runtime": "nodejs12"
   }
 }
